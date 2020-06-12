@@ -8,8 +8,7 @@ var header ="Today is " + currentDay + ", " + dateToday;
 
 $(document).ready(function(){
     timeHeader.text(header);
-    // console.log(todayItems);
-
+// setting the color of the row
     function colorChange(timeRow, hour){
         if (hour > currentHour){
             timeRow.addClass("future")
@@ -19,6 +18,7 @@ $(document).ready(function(){
             timeRow.addClass("present")
         };
     };
+    // I wanted to use both an index and an hour, so that I could reference certain items starting with a 0, like an index/local storage, but still have the hour when needed
     for(var hour = 9; hour < 19; hour++){
         let index = hour - 9 ;
         let newRow = $('<div>');
@@ -34,15 +34,15 @@ $(document).ready(function(){
         newRow.append(timeDisp);
 // creating the time that is displayed
         let timeDisplay = 0;
-        let ampm = "";
+        let amPM = "";
         if (hour > 12) { 
           timeDisplay = hour - 12;
-          ampm = "pm";
+          amPM = "PM";
         } else {
           timeDisplay = hour;
-          ampm = "am";
+          amPM = "AM";
         };
-        timeDisp.text(timeDisplay + ampm);
+        timeDisp.text(timeDisplay + amPM);
 // creating the input, and assigning an ID based on the index we are at. as well as putting any variables that might have been in local storage
         planInput.attr('id',`input-${index}`);
         planInput.attr('class', 'input');
@@ -62,16 +62,28 @@ $(document).ready(function(){
 // changing the color of the row
         colorChange(newRow, hour);
     };
-
+// filling in a blank item at noon to remind you to eat lunch
     if(!$("#input-3").val()){
         $("#input-3").val("Eat Lunch");
     };
-
+// save button click listener
     $(document).on('click','.saveBtn', function(event) {
         event.preventDefault(); 
-        var toDoInput = $(this).siblings(".inputDiv").children("input").val();
+        var toDoInput = $(this).siblings('.inputDiv').children('input').val();
         var toDoHour = $(this).attr('id');
-        console.log(toDoHour);
+        var clickedBtn = this
+        console.log(clickedBtn)
+// flashing the save button after being clicked
+        $(clickedBtn).css("background-color", "navy")
+        setTimeout(function(){
+            $(clickedBtn).css("background-color", "#06AED5");
+        },
+            500);
+        
+
+        
+
+        
 
         localStorage.setItem(toDoHour, toDoInput);
     });
