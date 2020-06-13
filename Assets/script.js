@@ -14,7 +14,7 @@ $(document).ready(function(){
             timeRow.addClass("future")
         } else if (hour < currentHour){
             timeRow.addClass("past")
-        } else if (hour === currentHour){
+        } else if (hour == currentHour){
             timeRow.addClass("present")
         };
     };
@@ -26,6 +26,8 @@ $(document).ready(function(){
         let inputDiv = $('<div>');
         let planInput = $('<input>');
         let saveBtn = $('<div>')
+        console.log(currentHour)
+        console.log(hour)
 // creating the row, and giving it an index to reference
         newRow.addClass('row');
         newRow.attr('index', index);
